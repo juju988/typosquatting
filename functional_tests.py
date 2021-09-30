@@ -16,12 +16,18 @@ class HomePageTests(unittest.TestCase):
         self.browser.quit()
 
     def test_home_page_displays_title(self):
+        """
+        User accessing homepage should see main title
+        """
         self.browser.get('http://127.0.0.1:8000/')
         time.sleep(1)
         # user sees the main title
         self.assertIn('PyPI typosquatting browser demo', self.browser.title)
 
     def test_home_page_contains_default_package(self):
+        """
+        User accessing homepage should see sample package 'pandas' in the input box
+        """
         self.browser.get('http://127.0.0.1:8000/')
         time.sleep(1)
         input_box = self.browser.find_element_by_name("package_name")
