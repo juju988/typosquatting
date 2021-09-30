@@ -89,23 +89,6 @@ async def check_nearest_neighbours(request: Request, package_name: str = Form('p
         if not loop:
             loop = asyncio.get_event_loop()
 
-        # get the list of packages within MAX_DISTANCE edits
-        """closest_packages = []
-        start_time = datetime.now()
-        package_name_length = len(package_name)
-        minimum_package_name_length = max(4, package_name_length - MAX_DISTANCE)
-        maximum_package_name_length = min(len(max(packages, key=len)), package_name_length + MAX_DISTANCE)
-        print(f'longest package name: {len(max(packages, key=len))}')
-        print(f'package_name: {package_name}')
-        print(f'minimum_package_name_length: {minimum_package_name_length}')
-        print(f'maximum_package_name_length: {maximum_package_name_length}')
-        for p in packages:
-            if p is not package_name:
-                if (len(p) > minimum_package_name_length) and (len(p) < maximum_package_name_length):
-                    distance = leven_cython.levenshtein(package_name, p, MAX_DISTANCE)
-                    if distance:
-                        closest_packages.append(p)
-        print(f'closest_packages: {closest_packages}')"""
         closest_packages = get_closest_packages_cython(package_name, packages)
 
         # create async requests to PyPI to get summaries of the closest_packages
@@ -136,12 +119,16 @@ async def check_nearest_neighbours(request: Request, package_name: str = Form('p
 
         # score each package according to how different their summary is and append to package_data
         package_data = []
+        requested_package = {}
         for p in projects:
             p.edit_distance = leven_cython.levenshtein(package_name, p.name, len(min(packages, key=len)))
-            package_data.append({'name': p.name, 'summary': p.summary, 'squatter': p.squatter,
-                                 'edit_distance': p.edit_distance})
+            if p.name == package_name:
+                requested_package = {'name': p.name, 'summary': p.summary}
+            else:
+                package_data.append({'name': p.name, 'summary': p.summary, 'squatter': p.squatter,
+                                     'edit_distance': p.edit_distance})
 
-        data = {'request': request, 'package_data': package_data, 'requested_package': package_name}
+        data = {'request': request, 'package_data': package_data, 'requested_package': requested_package}
         print(closest_packages)
     else:
         # requested_package not in the list of known PyPI packages

@@ -21,7 +21,7 @@
     <p>Please enter a PyPI package name and click Submit:</p>
 
     <form action="/" method="post">
-        <input type="text" value="{{ requested_package if requested_package else 'numpy' }}" name="package_name">
+        <input type="text" value="{{ requested_package.name if requested_package else 'pandas' }}" name="package_name">
         <input type="submit" value="Submit">
     </form>
 
@@ -62,7 +62,6 @@
              <p>We don't know of that PyPi package. Some popular PyPi packages are:</p>
              <li><a href="/?package_name=numpy">numpy</a></li>
              <li><a href="/?package_name=pendulum">pendulum</a></li>
-             <li><a href="/?package_name=PIL">PIL</a></li>
              <li><a href="/?package_name=moviepy">moviepy</a></li>
              <li><a href="/?package_name=requests">requests</a></li>
              <li><a href="/?package_name=tkinter">tkinter</a></li>
