@@ -1,0 +1,83 @@
+{% extends "shared/layout.html" %}
+
+{% block content %}
+
+    <img src="/static/img/cloud.png" style="float: left; max-width: 48px; margin-right: 20px;" alt="">
+
+    <h1><span class="font-semi-bold">PyPI typosquatting browser</span></h1>
+    <br>
+    <p><b>Typosquatting</b> is the act of creating software packages with names that mimic popular package names.
+    A <a href="https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/">study</a> (Speed Meyers and
+        Tozer, 2020) found 40 such typosquatting attacks against PyPI users between 2017 and 2020.</p>
+    <p>There are nearly <b>329,000</b> PyPI packages as at 30/September/2021. This demo project allows a user to enter a
+        a PyPI package name, and the summaries of any projects with closely related names will be displayed. Closely
+        related names are detected by finding those package names within a
+        <b><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a></b> edit distance of 1.</p>
+    <p>The Levenshtein algorithm is implemented using <b>Cython</b>, resulting in calculation times that are <b>2.3</b>
+    times faster than the pure Python equivalent.</p>
+    <p>Requests to PyPI for summary texts are handled using <b>asyncio</b>, allowing multiple requests to be sent
+    concurrently. The summary texts from PyPI are parsed from the index page of each package using the
+        <b><a href="https://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a></b> library.</p>
+    <p>Please enter a PyPI package name and click Submit:</p>
+
+    <form action="/" method="post">
+        <input type="text" value="{{ requested_package if requested_package else 'numpy' }}" name="package_name">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div style="clear:both;"></div>
+    <br>
+
+    {% if requested_package %}
+    <div>
+        <h2>Selected package name:</h2>
+        <table class="table table-striped">
+            <thead><tr><th>Name</th><th>Summary</th></tr></thead>
+            <tr>
+                <td>{{ requested_package.name }}</td><td>{{ requested_package.summary }}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+
+    {% if package_data %}
+    <div>
+        <h2>Closest package names:</h2>
+        <table class="table table-striped">
+            <thead><tr><th>Name</th><th>Summary</th></tr></thead>
+            <tr>
+            {% for p in package_data %}
+                <tr>
+                    <td>{{ p.name }}</td><td>{{ p.summary }}</td>
+                </tr>
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+    {{ context }}
+    {% if bad_request %}
+         <div>
+             <h2>Package <b>{{ requested_package }}</b> not found:</h2>
+             <p>We don't know of that PyPi package. Some popular PyPi packages are:</p>
+             <li><a href="/?package_name=numpy">numpy</a></li>
+             <li><a href="/?package_name=pendulum">pendulum</a></li>
+             <li><a href="/?package_name=PIL">PIL</a></li>
+             <li><a href="/?package_name=moviepy">moviepy</a></li>
+             <li><a href="/?package_name=requests">requests</a></li>
+             <li><a href="/?package_name=tkinter">tkinter</a></li>
+             <li><a href="/?package_name=pyqt">pyqt</a></li>
+             <li><a href="/?package_name=pandas">pandas</a></li>
+             <li><a href="/?package_name=pywin32">pywin32</a></li>
+             <li><a href="/?package_name=pytest">pytest</a></li>
+        </div>
+    {% endif %}
+    <div>
+        <h2>References:</h2>
+        <p>Speed Meyers, J. and Tozer, B. (2020) "Bewear! Python Typosquatting Is About More Than Typos",
+            <i>In-Q-Tel, Inc.</i>, 28 September 2020. Available at https://www.iqt.org/bewear-python-typosquatting-is-about-
+            more-than-typos/ (Accessed 30 September 2021).</p>
+    </div>
+
+
+{% endblock %}

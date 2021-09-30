@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+starlette
+jinja2
+aiofiles
+python-multipart
+dill
+Cython
+pytest
+httpx
+bs4
