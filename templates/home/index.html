@@ -10,9 +10,9 @@
     A <a href="https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/">study</a> (Speed Meyers and
         Tozer, 2020) found 40 such typosquatting attacks against PyPI users between 2017 and 2020.</p>
     <p>There are nearly <b>329,000</b> PyPI packages as at 30/September/2021. This demo project allows a user to enter a
-        PyPI package name, and the summaries of any projects with closely related names will be displayed. Closely
+        PyPI package name, and the names and summaries of any projects with closely related names will be displayed. Closely
         related names are detected by finding those package names within a
-        <b><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a></b> edit distance of 1 as
+        <b><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a></b> edit distance of 1, as
         might be expected from a single-character typographical error.</p>
     <p>The Levenshtein algorithm is implemented using <b>Cython</b>, resulting in calculation times that are <b>2.3</b>
     times faster than the pure Python equivalent.</p>
