@@ -12,4 +12,4 @@ The Levenshtein algorithm is implemented using Cython, resulting in calculation 
 Requests to PyPI for summary texts are handled using asyncio, allowing multiple requests to be sent concurrently. The summary texts from PyPI are parsed from the index page of each package using the Beautiful Soup library.
 
 References:
-Speed Meyers, J. and Tozer, B. (2020) "Bewear! Python Typosquatting Is About More Than Typos", In-Q-Tel, Inc., 28 September 2020. Available at https://www.iqt.org/bewear-python-typosquatting-is-about- more-than-typos/ (Accessed 30 September 2021).
+Speed Meyers, J. and Tozer, B. (2020) "Bewear! Python Typosquatting Is About More Than Typos", In-Q-Tel, Inc., 28 September 2020. Available at https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/ (Accessed 30 September 2021).
