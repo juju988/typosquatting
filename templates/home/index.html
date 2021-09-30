@@ -59,18 +59,17 @@
     {% if bad_request %}
          <div>
              <h2>Package <b>{{ requested_package }}</b> not found:</h2>
-             <p>We don't know of that PyPi package. Some popular PyPi packages are:</p>
-             <li><a href="/?package_name=numpy">numpy</a></li>
-             <li><a href="/?package_name=pendulum">pendulum</a></li>
-             <li><a href="/?package_name=moviepy">moviepy</a></li>
-             <li><a href="/?package_name=requests">requests</a></li>
-             <li><a href="/?package_name=tkinter">tkinter</a></li>
-             <li><a href="/?package_name=pyqt">pyqt</a></li>
-             <li><a href="/?package_name=pandas">pandas</a></li>
-             <li><a href="/?package_name=pywin32">pywin32</a></li>
-             <li><a href="/?package_name=pytest">pytest</a></li>
+             <p>We don't know of that PyPi package.
         </div>
     {% endif %}
+    <div>
+        <h2>Some popular PyPI packages are:</h2>
+        <ul>
+             <li><a href="/?package_name=pandas">pandas</a></li>
+             <li><a href="/?package_name=numpy">numpy</a></li>
+             <li><a href="/?package_name=requests">requests</a></li>
+        </ul>
+    </div>
     <div>
         <h2>References:</h2>
         <p>Speed Meyers, J. and Tozer, B. (2020) "Bewear! Python Typosquatting Is About More Than Typos",

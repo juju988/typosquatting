@@ -40,7 +40,7 @@ async def index(request: Request, package_name=None):
     print(package_name)
     context = {'request': request}
     if package_name:
-        context['requested_package'] = package_name
+        context['requested_package'] = {'name': package_name}
         context['submitted'] = False
     return templates.TemplateResponse('home/index.html', context)
 
