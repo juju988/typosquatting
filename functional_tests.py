@@ -14,62 +14,80 @@ class HomePageTests(unittest.TestCase):
 
     def test_home_page_displays_title(self):
         self.browser.get('http://127.0.0.1:8000/')
+        time.sleep(1)
         # user sees the main title
         self.assertIn('PyPI typosquatting browser demo', self.browser.title)
 
     def test_home_page_contains_default_package(self):
         self.browser.get('http://127.0.0.1:8000/')
-        # user sees the main title
-        self.assertIn('PyPI typosquatting browser demo', self.browser.title)
+        time.sleep(1)
+        input_box = self.browser.find_element_by_name("package_name")
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            'Enter SAP Notification No.')
-
-
+            input_box.get_attribute('value'),
+            'pandas')
 
     def test_submit_good_package_name(self):
-        # user enters a name that is in PyPI
-        text_box = self.browser.find_element_by_name("package_name")
-        text_box.send_keys('numpy')
-        time.sleep(0.5)
-        # user submits
-        submit = self.browser.find_element_by_name('submit').click()
-        submit.click()
+        self.browser.get('http://127.0.0.1:8000/')
+        time.sleep(2)
+        # user enters a name of a package that is in PyPI and submits
+        input_box = self.browser.find_element_by_name("package_name")
+        input_box.clear()
+        input_box.send_keys('numpy' + Keys.ENTER)
+        time.sleep(5)
 
-        time.sleep(1)
-        titles = self.browser.find_elements_by_tag_name("h2")
+        title_elements = self.browser.find_elements_by_tag_name("h2")
+        titles = []
+        for t in title_elements:
+            titles.append(t.text)
+
         # user should see the following titles:
         self.assertIn('Selected package name:', titles)
         self.assertIn('Closest package names:', titles)
         self.assertIn('Some popular PyPI packages are:', titles)
         self.assertIn('References:', titles)
 
-
-
-
-        table = self.browser.find_element_by_id('open_reports_table')
-        self.assertIsNotNone(table)
-        rows = table.find_elements_by_tag_name('tr')
-        # print(type(rows))
-        self.assertIsNotNone(rows)
-        self.assertTrue(
-            any('JSON Report 1' in row.text for row in rows),
-            'Table does not contain \'JSON Report 1\''
-        )
-
-        # Bob notices the reports are hyperlinked
-        link = self.browser.find_element_by_link_text('Pollution Incident Form')
-        self.assertIsNotNone(link)
-
-        # Bob clicks on a report and is taken to the report itself
-        self.browser.find_element_by_link_text('Pollution Incident Form').click()
+    def test_submit_bad_package_name(self):
+        # user enters a name of a package that is not in PyPI and submits
+        self.browser.get('http://127.0.0.1:8000/')
+        time.sleep(2)
+        # user enters a name of a package that is in PyPI and submits
+        input_box = self.browser.find_element_by_name("package_name")
+        bad_package_name = 'numpy_alksjfalskjfjdfadsf'
+        input_box.clear()
+        input_box.send_keys(bad_package_name + Keys.ENTER)
         time.sleep(2)
 
-        titles = self.browser.find_elements_by_tag_name("h2")
-        self.assertEqual(title.text, "Edit Report")'''
+        title_elements = self.browser.find_elements_by_tag_name("h2")
+        titles = []
+        for t in title_elements:
+            titles.append(t.text)
 
- 
- 
+        # user should see the following titles:
+        self.assertIn(f'Package {bad_package_name} not found:', titles)
+        self.assertIn('Some popular PyPI packages are:', titles)
+        self.assertIn('References:', titles)
+
+
+    """table = self.browser.find_element_by_id('open_reports_table')
+    self.assertIsNotNone(table)
+    rows = table.find_elements_by_tag_name('tr')
+    # print(type(rows))
+    self.assertIsNotNone(rows)
+    self.assertTrue(
+        any('JSON Report 1' in row.text for row in rows),
+        'Table does not contain \'JSON Report 1\''
+    )
+
+    # Bob notices the reports are hyperlinked
+    link = self.browser.find_element_by_link_text('Pollution Incident Form')
+    self.assertIsNotNone(link)
+
+    # Bob clicks on a report and is taken to the report itself
+    self.browser.find_element_by_link_text('Pollution Incident Form').click()
+    time.sleep(2)
+
+    titles = self.browser.find_elements_by_tag_name("h2")
+    self.assertEqual(title.text, "Edit Report")'''"""
 
 
 if __name__ == '__main__':
