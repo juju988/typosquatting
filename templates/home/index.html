@@ -14,8 +14,8 @@
         related names are detected by finding those package names within a
         <b><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a></b> edit distance of 1, as
         might be expected from a single-character typographical error.</p>
-    <p>The Levenshtein algorithm is implemented using <b>Cython</b>, resulting in calculation times that are <b>2.3</b>
-    times faster than the pure Python equivalent.</p>
+    <p>The Levenshtein algorithm in implemented in Python but has been converted to C code using <b>Cython</b>,
+        resulting in calculation times that are <b>2.3</b> times faster than the pure Python equivalent.</p>
     <p>Requests to PyPI for summary texts are handled using <b>asyncio</b>, allowing multiple requests to be sent
     concurrently. The summary texts from PyPI are parsed from the index page of each package using the
         <b><a href="https://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a></b> library.</p>
