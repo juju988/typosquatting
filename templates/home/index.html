@@ -4,7 +4,7 @@
 
     <img src="/static/img/cloud.png" style="float: left; max-width: 48px; margin-right: 20px;" alt="">
 
-    <h1><span class="font-semi-bold">PyPI typosquatting browser</span></h1>
+    <h1><span class="font-semi-bold">PyPI typosquatting browser demo</span></h1>
     <br>
     <p><b>Typosquatting</b> is the act of creating software packages with names that mimic popular package names.
     A <a href="https://www.iqt.org/bewear-python-typosquatting-is-about-more-than-typos/">study</a> (Speed Meyers and
@@ -22,7 +22,7 @@
 
     <form action="/" method="post">
         <input type="text" value="{{ requested_package.name if requested_package else 'pandas' }}" name="package_name">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" name="submit">
     </form>
 
     <div style="clear:both;"></div>

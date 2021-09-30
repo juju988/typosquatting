@@ -9,3 +9,4 @@ Cython
 pytest
 httpx
 bs4
+selenium
