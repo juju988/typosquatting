@@ -18,7 +18,7 @@
     <p>Requests to PyPI for summary texts are handled using <b>asyncio</b>, allowing multiple requests to be sent
     concurrently. The summary texts from PyPI are parsed from the index page of each package using the
         <b><a href="https://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a></b> library.</p>
-    <p>Please enter a PyPI package name and click Submit:</p>
+    <p>Please enter a PyPI package name <b>and click Submit</b>:</p>
 
     <form action="/" method="post">
         <input type="text" value="{{ requested_package.name if requested_package else 'pandas' }}" name="package_name">
@@ -43,7 +43,7 @@
     {% if package_data %}
     <div>
         <h2>Closest package names:</h2>
-        <table class="table table-striped">
+        <table class="table table-striped" data-sortable>
             <thead><tr><th>Name</th><th>Summary</th></tr></thead>
             <tr>
             {% for p in package_data %}
