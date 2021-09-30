@@ -4,6 +4,9 @@ import time
 import unittest
 from datetime import datetime
 
+# TODO: test a table of packages is displayed if package is good
+# TODO: test table can be sorted on columns if package is good
+
 
 class HomePageTests(unittest.TestCase):
     def setUp(self):
@@ -66,28 +69,6 @@ class HomePageTests(unittest.TestCase):
         self.assertIn(f'Package {bad_package_name} not found:', titles)
         self.assertIn('Some popular PyPI packages are:', titles)
         self.assertIn('References:', titles)
-
-
-    """table = self.browser.find_element_by_id('open_reports_table')
-    self.assertIsNotNone(table)
-    rows = table.find_elements_by_tag_name('tr')
-    # print(type(rows))
-    self.assertIsNotNone(rows)
-    self.assertTrue(
-        any('JSON Report 1' in row.text for row in rows),
-        'Table does not contain \'JSON Report 1\''
-    )
-
-    # Bob notices the reports are hyperlinked
-    link = self.browser.find_element_by_link_text('Pollution Incident Form')
-    self.assertIsNotNone(link)
-
-    # Bob clicks on a report and is taken to the report itself
-    self.browser.find_element_by_link_text('Pollution Incident Form').click()
-    time.sleep(2)
-
-    titles = self.browser.find_elements_by_tag_name("h2")
-    self.assertEqual(title.text, "Edit Report")'''"""
 
 
 if __name__ == '__main__':
