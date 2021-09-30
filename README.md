@@ -1,5 +1,6 @@
 # typosquatting
 A demo for exploring PyPI package names
+
 Typosquatting is the act of creating software packages with names that mimic popular package names. A study (Speed Meyers and Tozer, 2020) found 40 such typosquatting attacks against PyPI users between 2017 and 2020.
 
 There are nearly 329,000 PyPI packages as at 30/September/2021. This demo project allows a user to enter a a PyPI package name, and the summaries of any projects with closely related names will be displayed. Closely related names are detected by finding those package names within a Levenshtein edit distance of 1.
